@@ -1,8 +1,8 @@
 library(dplyr)
 
-## fileurl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-## download.file(fileurl, "dataset.zip", method="curl") 
-## unzip("dataset.zip")
+fileurl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+download.file(fileurl, "dataset.zip", method="curl") 
+unzip("dataset.zip")
 
 datatrain <- read.table("UCI HAR Dataset/train/X_train.txt")
 activitytrain <- read.table("UCI HAR Dataset/train/y_train.txt")
@@ -32,3 +32,4 @@ colnames(dataselected) <- featurelist$V2[index]
 ActivityDataSet <- cbind(subjectall, activitystring, dataselected)
 
 ActivityMean <- ActivityDataSet %>% group_by(subject, activity) %>% summarise_each(funs(mean))
+write.table(ActivityMean, "ActivityMean.txt", row.names=FALSE)
